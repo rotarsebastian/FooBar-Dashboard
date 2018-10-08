@@ -1,0 +1,24 @@
+{
+  "name": "foobar-dashboard",
+  "version": "1.0.0",
+  "description": "FooBar Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rotarsebastian/FooBar-Dashboard.git"
+  },
+  "author": "Sebastian Rotar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rotarsebastian/FooBar-Dashboard/issues"
+  },
+  "homepage": "https://github.com/rotarsebastian/FooBar-Dashboard#readme",
+  "dependencies": {
+    "chart.js": "^2.7.2",
+    "gsap": "^2.0.2",
+    "is.js": "0.0.2"
+  }
+}
