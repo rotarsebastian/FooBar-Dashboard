@@ -10,30 +10,46 @@
     <title>FooBar</title>
 </head>
 
-<body>
+<body onload="realTime()">
 
     <main>
         <section id="bartender-time-section">
-            <div id="time-left-container">
-                <div class="time-bar-left-corner">*</div>
-                <div class="time-bar-left-corner">*</div>
-                <div class="time-bar-left-corner">*</div>
-                <div class="time-bar-left-corner">*</div>
-                <div class="time-bar-left-corner">*</div>
-            </div>
-            <h3>Bartender Time Left
-                </h2>
+            <h3>Bartender Time Left</h3>
         </section>
         <section id="welcome-section">
             <h1>Welcome <span id="welcome-bartender-name"></span>!</h1>
         </section>
         <section>
-            <button>Login</button>
+            <div class="dropdown-menu">
+                <button class="login-button">Login</button>
+                <div id="theDropdown" class="dropdown-content">
+                    <a class="drop-down-name" href="#">Jonas</a>
+                    <a class="drop-down-name" href="#">Peter</a>
+                    <a class="drop-down-name" href="#">Martin</a>
+                </div>
+            </div>
         </section>
         <section id="storage-room-section">
 
         </section>
         <section id="orders-section">
+
+        </section>
+        <section id="kegs-section">
+
+        </section>
+        <section id="real-time-section">
+            <div id="time" class="real-time"></div>
+        </section>
+
+
+        <section id="people-in-queue">
+
+            <h1 class="people-queue">Left in queue: <span id="queue-number"></span></h1>
+
+        </section>
+
+        <section id="closing-time">
 
         </section>
     </main>
@@ -48,6 +64,23 @@
     </template>
 
     <template id="orders-template">
+
+    </template>
+    <template id="kegs-levels-template">
+        <div class="single-keg">
+            <div class="keg-pic-container">
+                <img src="" alt="keg-type-level" class="beer-type-pic">
+            </div>
+            <div class="level-container">
+                <h5>Level</h5>
+                <div class="w3-progress-container">
+                    <div class="w3-progressbar"></div>
+                </div>
+                <div class="keg-name"></div>
+                <div class="level-number"></div>
+            </div>
+        </div>
+    </template>
 
     </template>
 
