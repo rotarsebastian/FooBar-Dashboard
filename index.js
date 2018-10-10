@@ -118,14 +118,13 @@ function handleOrders(tickets) {
         let orderTimes = document.querySelectorAll(".order-time");
         let selectOrders = document.querySelectorAll(".order-item");
         for (let count = 0; count < selectOrders.length; count++) {
-            selectOrders[i].parentNode.removeChild(selectOrders[i]);
+            selectOrders[count].parentNode.removeChild(selectOrders[count]);
         }
         for (let count1 = 0; count1 < orderTimes.length; count1++) {
             orderTimes[count1].textContent = "";
         }
-        console.log(tickets);
-        for (let count2 = 0; count2 < tickets.length; count2++) {
-            let timestamp = tickets[count2].startTime;
+        for (let i = 0; i < tickets.length; i++) {
+            let timestamp = tickets[i].startTime;
             let date = new Date(timestamp);
             let hour = date.getHours();
             let minutes = date.getMinutes();
@@ -135,12 +134,13 @@ function handleOrders(tickets) {
             if (minutes <= 9) {
                 minutes = "0" + minutes;
             }
-            orderTimes[count2].textContent = hour + ":" + minutes;
-            for (let count = 0; count < tickets[count2].order.length; count++) {
+            orderTimes[i].textContent = hour + ":" + minutes;
+            for (let j = 0; j < tickets[i].order.length; j++) {
+                let divContainer = document.querySelectorAll(".individual-order");
                 let orderItem = document.createElement("p");
                 orderItem.className = "order-item";
-                orderItem[count2].textContent = tickets.order[count];
-                divContainer.appendChild(orderItem);
+                orderItem.textContent = tickets[i].order[j];
+                divContainer[i].appendChild(orderItem);
             }
         }
     }
