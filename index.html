@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
     <link href="https://kea-alt-del.dk/2018/front/foobar.js" type="text/javascript" />
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
     <title>FooBar</title>
 </head>
 
@@ -21,14 +23,16 @@
                 <div class="time-bar-left-corner">*</div>
                 <div class="time-bar-left-corner">*</div>
             </div>
-            <h3>Bartender Time Left
+            <h3 class="bartender-time-left">Bartender Time Left
                 </h2>
         </section>
         <section id="welcome-section">
-            <h1>Welcome <span id="welcome-bartender-name"></span>!</h1>
+            <h1 class="welcome-bartender">Welcome <span id="welcome-bartender-name"></span>!</h1>
         </section>
         <section>
-            <button>Login</button>
+            <button class="login-button">
+                <p>Login</p>
+            </button>
         </section>
         <section id="storage-room-section">
 
@@ -36,6 +40,24 @@
         <section id="orders-section">
 
         </section>
+
+        <section id="kegs-section">
+
+        </section>
+
+        <section id="real-time-section"></section>
+
+
+        <section id="people-in-queue">
+
+            <h1 class="people-queue">People in queue <span id="queue-number"></span>!</h1>
+
+        </section>
+
+        <section id="closing-time">
+
+        </section>
+
     </main>
 
     <template id="storage-room-template">
