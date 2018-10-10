@@ -9,12 +9,13 @@ const data = FooBar.getData();
 const newData = JSON.parse(data);
 
 function init() {
-    //setInterval(updateBartender, 5000);
-    //setInterval(updateStorageRoom, 300);
+    setInterval(updateBartender, 5000);
+    setInterval(updateStorageRoom, 300);
     setInterval(updateOrders, 300);
-    updateStorageRoom();
-    //updateOrders();
-
+    setInterval(updateKegs, 300);
+    setInterval(updateQueue, 300);
+    document.addEventListener("click", closeDropDownOnClick);
+    document.querySelector(".login-button").addEventListener("click", doDropDown);
 }
 
 function updateBartender() {
@@ -22,10 +23,21 @@ function updateBartender() {
     handleBartender(data.bartenders);
 }
 
+function updateQueue() {
+    let data = JSON.parse(FooBar.getData());
+    handleQueue(data.queue);
+}
+
 function updateStorageRoom() {
     let data = JSON.parse(FooBar.getData());
     handleStorageRoom(data.storage);
 }
+
+function updateKegs() {
+    let data = JSON.parse(FooBar.getData());
+    handleKegs(data.taps);
+}
+
 
 function updateOrders() {
     let data = JSON.parse(FooBar.getData());
@@ -48,7 +60,7 @@ function handleStorageRoom(beerType) {
             let amountOfKegs = beerType[count].amount;
             while (amountOfKegs > 0) {
                 let newImage = new Image(20, 20);
-                newImage.src = "img/mowintime.png";
+                newImage.src = "img/keg.png";
                 newImage.className = "storage-kegs-icon";
                 let theDiv = clone.querySelector(".kegs-icon-container");
                 theDiv.appendChild(newImage);
@@ -65,11 +77,12 @@ function handleStorageRoom(beerType) {
         }
         for (let count = 0; count < beerType.length; count++) {
             let amountOfKegs = beerType[count].amount;
-            console.log(amountOfKegs);
             while (amountOfKegs > 0) {
                 let newImage = new Image(20, 20);
-                newImage.src = "img/mowintime.png";
+                newImage.src = "img/keg.png";
                 newImage.className = "storage-kegs-icon";
+                newImage.style.marginRight = "3px";
+                newImage.style.marginBottom = "3px";
                 let theContainers = document.querySelectorAll(".kegs-icon-container");
                 let containersArray = Array.from(theContainers);
                 containersArray[count].appendChild(newImage);
@@ -141,6 +154,101 @@ function handleOrders(tickets) {
                 orderItem.className = "order-item";
                 orderItem.textContent = tickets[i].order[j];
                 divContainer[i].appendChild(orderItem);
+            }
+        }
+    }
+    checkContainer();
+
+}
+
+function checkContainer() {
+    let divContainer = document.querySelectorAll(".individual-order");
+    for (var i = 0; i < divContainer.length; i++) {
+        if (divContainer[i].textContent == "")
+            divContainer[i].style.display = "none";
+    }
+
+}
+
+
+function handleKegs(keg) {
+    const kegsContainer = document.querySelector("#kegs-section");
+    const kegsTemplate = document.querySelector("#kegs-levels-template").content;
+    let theKegName = document.querySelector(".keg-name");
+    if (theKegName == null) {
+        for (let count = 0; count < keg.length; count++) {
+            let clone = kegsTemplate.cloneNode(true);
+            let beerArray = ["Sleighride", "Hollaback Lager", "Ruined Childhood", "GitHop", "Mowintime", "Row 26", "Hoppily Ever After", "Steampunk", "Fairy Tale Ale", "El Hefe"];
+            let kegName = clone.querySelector(".keg-name");
+            kegName.textContent = keg[count].beer;
+            for (let i = 0; i < beerArray.length; i++) {
+                if (kegName.textContent == beerArray[i]) {
+                    let beerTag = clone.querySelector(".beer-type-pic");
+                    beerTag.src = "img/" + beerArray[i] + ".png";
+                }
+            }
+            let levelBar = clone.querySelector(".w3-progressbar");
+            let levelNum = clone.querySelector(".level-number");
+            levelNum.textContent = keg[count].level + "/" + keg[count].capacity;
+            levelBar.style.width = "100%";
+            kegsContainer.appendChild(clone);
+        }
+    }
+    else {
+
+        for (let count = 0; count < keg.length; count++) {
+            let level = document.querySelectorAll(".w3-progressbar");
+            let decreaseValue = keg[count].capacity - keg[count].level;
+            var percentValue = Math.floor((decreaseValue / keg[count].level) * 100);
+            let newLevel = 100 - percentValue;
+            level[count].style.width = newLevel + "%";
+            let levelNum = document.querySelectorAll(".level-number");
+            levelNum[count].textContent = keg[count].level + "/" + keg[count].capacity + "cl";
+        }
+
+    }
+
+}
+
+
+function handleQueue(people) {
+    let queueLength = people.length;
+    let queueNumber = document.querySelector("#queue-number");
+    queueNumber.textContent = queueLength;
+}
+
+function realTime() {
+    var today = new Date();
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
+    var seconds = today.getSeconds();
+    if (hours <= 9) {
+        hours = "0" + hours;
+    }
+    if (minutes <= 9) {
+        minutes = "0" + minutes;
+    }
+    if (seconds <= 9) {
+        seconds = "0" + seconds;
+    }
+    document.getElementById("time").innerHTML =
+        hours + ":" + minutes + ":" + seconds;
+    var t = setTimeout(realTime, 500);
+}
+
+function doDropDown() {
+    document.querySelector("#theDropdown").classList.toggle("show");
+}
+
+function closeDropDownOnClick(event) {
+    if (!event.target.matches('.login-button')) {
+
+        var dropdowns = document.querySelector(".login-button");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
             }
         }
     }
