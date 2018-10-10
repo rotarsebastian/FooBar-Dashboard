@@ -1,3 +1,31 @@
-h1 {
-  color: rgb(114, 91, 136);
+body{
+  margin: 0;
+}
+main{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 3px;
+}
+
+section{
+  border: 1px solid black;
+  position: relative;
+}
+
+#time-left-container{
+  position: absolute;
+  left: 30%;
+}
+
+.time-bar-left-corner{
+  display: inline;
+
+}
+
+.storage-kegs-left{
+  width: 20px;
+}
+
+.beer-storage{
+  border: 1px solid black;
 }
