@@ -32,11 +32,18 @@ section {
 }
 
 .beer-storage {
-  border: 1px solid black;
+  border-left: .2vw inset brown;
+  border-right: 1px dashed black;
+  border-top: 1px dashed black;
+  border-bottom: 1px dashed black;
+  box-shadow: 7px 5px 18px #888888;
+  background-color: hsla(18, 100%, 48%, 0.726);
+  font-size: 1.5em;
 }
 
 .beer-name-storage {
   letter-spacing: 1px;
+  margin-left: 1vw;
 }
 
 .bartender-time-left {
@@ -72,8 +79,30 @@ section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  background-color: lightyellow;
 }
 
 p.order-item{
-  
+  display: list-item;
+    list-style-type: disc;
+    list-style-position: inside;
+    font-size: 1em;
+}
+
+h2.order-time{
+  text-align: center;
+  margin-bottom: 2vh;
+  font-size: 1.5em;
+}
+
+#storage-room-section{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: lightyellow;
+}
+
+.people-queue{
+  color: darkred;
+  text-align: center;
 }
