@@ -1,27 +1,28 @@
 * {
   margin: 0;
   padding: 0;
- text-transform: uppercase;
 }
 body{
-  margin: 0;
+  margin: 5px;
   font-family: "Work Sans", sans-serif;
   background: linear-gradient(to bottom, rgb(109, 109, 109) 0rgb(255, 255, 255) 100%);
 }
 main{
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-gap: 8px;
+  grid-gap: 3px;
   grid-template-rows: 50px 700px 50px;
 
 }
 
 section{
   position: relative;
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(236, 236, 236) 100%);
 }
 
 #bartender-time-section{
   border: none;
+  position: relative;
 }
 
 
@@ -81,8 +82,9 @@ section{
 
 .single-keg{
   margin-bottom: 5px;
-  border: 1px solid black;
   position: relative;
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(236, 236, 236) 100%);
+  margin-bottom: 25px;
 }
 .level-container{
   padding-left: 75px;
@@ -92,6 +94,7 @@ section{
   padding: 10px;
   padding-left: 0;
   text-transform: none;
+  display: none;
 }
 
 .level-number{
@@ -100,6 +103,7 @@ section{
   font-size: 13px;
   text-align: right;
   margin-right: 10px;
+  padding-top: 10px;
 }
 
 .real-time{
@@ -115,6 +119,16 @@ section{
   position: absolute;
 }
 
+.keg-name{
+  text-transform: none;
+  margin-top: -30px;
+  padding: 5px;
+  text-align: right;
+  margin-right: 10px;
+  padding-bottom: 10px;
+
+}
+
 .individual-order {
   padding: 2vh 2vw 2vh 2vw;
   margin: 1vh 0vw 1vh 0vw;
@@ -123,6 +137,35 @@ section{
   height: fit-content;
   width: 130px;
   background: rgb(245, 244, 244);
+  animation: pop-in .5s ease-in-out;
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+  100%{
+    opacity: 1;
+    height: fit-content;
+    width: 130px;
+  }
+}
+
+.order-time, .order-item{
+  animation: text-opacity 1s ease-in forwards;
+  animation-delay: .5s;
+  opacity: 0;
+}
+
+@keyframes text-opacity {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
 }
 
 #orders-section{
@@ -133,6 +176,19 @@ section{
   overflow-y: scroll;
   background: linear-gradient(to bottom, rgb(95, 95, 95) 0%, rgb(235, 235, 235) 100%);
 }
+
+#orders-section::-webkit-scrollbar { 
+  display: none; 
+}
+
+#storage-room-section::-webkit-scrollbar { 
+  display: none; 
+}
+
+#kegs-section::-webkit-scrollbar { 
+  display: none; 
+}
+
 
 .dropdown {
   position: relative;
@@ -171,7 +227,23 @@ section{
   cursor: pointer;
   position: absolute;
   height: 100%;
-  background: indianred;
+  background: #8D0033;
+  color: white;
+  letter-spacing: 3px;
+  text-transform: none;
+}
+
+#closing-time-p{
+  font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    color: indianred;
+    padding: 10px;
+}
+
+.logo{
+  width: 100%;
+  height: 100%;
 }
 
 .login-section{
@@ -180,8 +252,7 @@ section{
 
 .welcome-tag{
   text-align: center;
-  padding: 5px;
-  font-size: 35px;
+  padding-top: 12px;
 }
 
 #welcome-section{

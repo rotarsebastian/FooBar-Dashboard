@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
     <link href="https://kea-alt-del.dk/2018/front/foobar.js" type="text/javascript" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>FooBar</title>
 </head>
 
@@ -15,14 +16,14 @@
 
     <main>
         <section id="bartender-time-section">
-            <h3 class="bar-name">FooBar</h3>
+            <img class="logo" src="img/logo.png">
         </section>
         <section id="welcome-section">
             <h1 class="welcome-tag">Welcome<span id="welcome-bartender-name"></span>!</h1>
         </section>
         <section class="login-section">
             <div class="dropdown-menu">
-                <button class="login-button">Login</button>
+                <button class="login-button">LogIn</button>
                 <div id="theDropdown" class="dropdown-content">
                     <a class="drop-down-name" href="#" onclick="logIn(this)"></a>
                     <a class="drop-down-name" href="#" onclick="logIn(this)"></a>
@@ -51,7 +52,7 @@
         </section>
 
         <section id="closing-time">
-            <p>22:00:00</p>
+            <p id="closing-time-p"></p>
         </section>
     </main>
 
