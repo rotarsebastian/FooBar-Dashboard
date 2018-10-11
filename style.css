@@ -1,11 +1,11 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Work Sans", sans-serif;
+ 
 }
 body{
   margin: 0;
-  
+  font-family: "Work Sans", sans-serif;
 
 }
 main{
@@ -75,7 +75,7 @@ section{
   margin: 1vh 0vw 1vh 0vw;
   box-shadow: 0px 0px 18px #888888;
   background-color: hsla(18, 100%, 34%, 0.726);
-  height: 150px;
+  height: 165px;
   width: 130px;
   border-radius: 5px;
 }
@@ -96,7 +96,7 @@ section{
   background-color: #f1f1f1;
   overflow: auto;
   z-index: 1;
-  position: absolute;
+  position: relative;
   min-width: 100%;
   text-align: center;
   padding-top: 5px;
@@ -117,10 +117,12 @@ section{
 .login-button{
   width: 100%;
   padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 18px;
-    border-radius: 4px;
-    cursor: pointer;
+  padding-bottom: 5px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
 }
 
 .login-section{
@@ -129,6 +131,8 @@ section{
 
 .welcome-tag{
   text-align: center;
+  padding: 5px;
+  font-size: 35px;
 }
 
 .order-time{
@@ -149,4 +153,18 @@ section{
 .beer-storage{
   border-bottom: 1px solid black;
   margin-bottom: 5px;
+}
+
+.low-amount-warning{
+  color: red;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.bar-name{
+  text-align: center;
+  padding: 5px;
+  font-size: 35px;
 }

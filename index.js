@@ -37,7 +37,7 @@ function updateStorageRoom() {
 
 function updateKegs() {
     let data = JSON.parse(FooBar.getData());
-    handleKegs(data.taps);
+    handleKegs(data.taps, data.storage);
 }
 
 
@@ -67,6 +67,10 @@ function handleStorageRoom(beerType) {
             let clone = storageTemplate.cloneNode(true);
             let amountOfKegs = beerType[count].amount;
             clone.querySelector(".beer-name-storage").textContent = beerType[count].name + ` (${amountOfKegs})`;
+            if (amountOfKegs == 0 || amountOfKegs == 1) {
+                let lowWarning = clone.querySelector(".low-amount-warning");
+                lowWarning.textContent = "WARNING! Low amount left!";
+            }
             while (amountOfKegs > 0) {
                 let newImage = new Image(20, 25);
                 newImage.src = "img/keg.png";
@@ -77,6 +81,7 @@ function handleStorageRoom(beerType) {
                 theDiv.appendChild(newImage);
                 amountOfKegs = amountOfKegs - 1;
             }
+
             storageContainer.appendChild(clone);
 
         }
@@ -201,7 +206,7 @@ function handleOrders(tickets) {
 }
 
 
-function handleKegs(keg) {
+function handleKegs(keg, storageAmount) {
     const kegsContainer = document.querySelector("#kegs-section");
     const kegsTemplate = document.querySelector("#kegs-levels-template").content;
     let theKegName = document.querySelector(".keg-name");
@@ -231,10 +236,16 @@ function handleKegs(keg) {
             let decreaseValue = keg[count].capacity - keg[count].level;
             var percentValue = Math.floor((decreaseValue / keg[count].level) * 100);
             let newLevel = 100 - percentValue;
+            console.log(newLevel);
+            if (newLevel == 0) {
+                newLevel = 100;
+            }
             level[count].style.width = newLevel + "%";
             let levelNum = document.querySelectorAll(".level-number");
             levelNum[count].textContent = keg[count].level + "/" + keg[count].capacity + "cl";
-            if (keg[count].level == "0") {
+            if (keg[count].level == 0) {
+                let allKegsInStorage = storageAmount.amount;
+                //CONTINUE
                 let theBeers = document.querySelectorAll(".beer-name-storage");
                 for (let i = 0; i < theBeers.length; i++) {
                     if (keg[count].beer == theBeers[i].textContent) {
