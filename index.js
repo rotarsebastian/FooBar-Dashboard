@@ -5,22 +5,18 @@ import Chart from Chart.js;
 
 init();
 
-const data = FooBar.getData();
-const newData = JSON.parse(data);
 
 function init() {
-    setInterval(updateBartender, 5000);
-    setInterval(updateStorageRoom, 300);
+    //setInterval(updateStorageRoom, 300);
     setInterval(updateOrders, 300);
     setInterval(updateKegs, 300);
     setInterval(updateQueue, 300);
+    updateBartender();
+    updateStorageRoom();
+
+
     document.addEventListener("click", closeDropDownOnClick);
     document.querySelector(".login-button").addEventListener("click", doDropDown);
-}
-
-function updateBartender() {
-    let data = JSON.parse(FooBar.getData());
-    handleBartender(data.bartenders);
 }
 
 function updateQueue() {
@@ -28,9 +24,15 @@ function updateQueue() {
     handleQueue(data.queue);
 }
 
+function updateBartender() {
+    let data = JSON.parse(FooBar.getData());
+    handleBartenders(data.bartenders);
+}
+
 function updateStorageRoom() {
     let data = JSON.parse(FooBar.getData());
     handleStorageRoom(data.storage);
+    //console.log(FooBar.getData(true));
 }
 
 function updateKegs() {
@@ -44,24 +46,33 @@ function updateOrders() {
     handleOrders(data.queue);
 }
 
-function handleBartender(bartender) {
-    const bartenderName = document.querySelector("#welcome-bartender-name");
-    bartenderName.textContent = bartender[0].name;
+function handleBartenders(bartender) {
+    let dropDowns = document.querySelectorAll(".drop-down-name");
+    for (let count = 0; count < bartender.length; count++) {
+        dropDowns[count].textContent = " " + bartender[count].name;
+    }
+
+}
+
+function logIn(e) {
+    let bartenderName = document.querySelector("#welcome-bartender-name");
+    bartenderName.textContent = e.textContent;
 }
 
 function handleStorageRoom(beerType) {
     const storageContainer = document.querySelector("#storage-room-section");
     const storageTemplate = document.querySelector("#storage-room-template").content;
-    let firstTypeOfBeer = document.querySelector(".beer-name-storage");
-    if (firstTypeOfBeer == null) {
+    if (!handleStorageRoom.didrun) {
         for (let count = 0; count < beerType.length; count++) {
             let clone = storageTemplate.cloneNode(true);
-            clone.querySelector(".beer-name-storage").textContent = beerType[count].name;
             let amountOfKegs = beerType[count].amount;
+            clone.querySelector(".beer-name-storage").textContent = beerType[count].name + ` (${amountOfKegs})`;
             while (amountOfKegs > 0) {
-                let newImage = new Image(20, 20);
+                let newImage = new Image(20, 25);
                 newImage.src = "img/keg.png";
                 newImage.className = "storage-kegs-icon";
+                newImage.style.marginRight = "3px";
+                newImage.style.marginBottom = "3px";
                 let theDiv = clone.querySelector(".kegs-icon-container");
                 theDiv.appendChild(newImage);
                 amountOfKegs = amountOfKegs - 1;
@@ -70,6 +81,7 @@ function handleStorageRoom(beerType) {
 
         }
     }
+    /*
     else {
         let kegIcons = document.querySelectorAll(".storage-kegs-icon");
         for (var i = 0; i < kegIcons.length; i++) {
@@ -78,7 +90,7 @@ function handleStorageRoom(beerType) {
         for (let count = 0; count < beerType.length; count++) {
             let amountOfKegs = beerType[count].amount;
             while (amountOfKegs > 0) {
-                let newImage = new Image(20, 20);
+                let newImage = new Image(20, 25);
                 newImage.src = "img/keg.png";
                 newImage.className = "storage-kegs-icon";
                 newImage.style.marginRight = "3px";
@@ -89,16 +101,16 @@ function handleStorageRoom(beerType) {
                 amountOfKegs = amountOfKegs - 1;
             }
         }
+        
 
-
-    }
+    }*/
+    handleStorageRoom.didrun = true;
 }
 
 function handleOrders(tickets) {
     const ordersContainer = document.querySelector("#orders-section");
     const ordersTemplate = document.querySelector("#orders-template").content;
-    let firstOderTime = document.querySelector(".order-time");
-    if (firstOderTime == null) {
+    if (!handleOrders.didrun) {
         for (let count = 0; count < tickets.length; count++) {
             let clone = ordersTemplate.cloneNode(true);
             let timestamp = tickets[count].startTime;
@@ -113,6 +125,7 @@ function handleOrders(tickets) {
             }
             let divContainer = document.createElement("div");
             divContainer.className = "individual-order";
+            divContainer.id = tickets[count].id;
             let orderTime = document.createElement("h2");
             orderTime.className = "order-time";
             orderTime.textContent = hour + ":" + minutes;
@@ -126,46 +139,63 @@ function handleOrders(tickets) {
             clone.appendChild(divContainer);
             ordersContainer.appendChild(clone);
         }
+        handleOrders.didrun = true;
     }
     else {
-        let orderTimes = document.querySelectorAll(".order-time");
-        let selectOrders = document.querySelectorAll(".order-item");
-        for (let count = 0; count < selectOrders.length; count++) {
-            selectOrders[count].parentNode.removeChild(selectOrders[count]);
-        }
-        for (let count1 = 0; count1 < orderTimes.length; count1++) {
-            orderTimes[count1].textContent = "";
-        }
-        for (let i = 0; i < tickets.length; i++) {
-            let timestamp = tickets[i].startTime;
-            let date = new Date(timestamp);
-            let hour = date.getHours();
-            let minutes = date.getMinutes();
-            if (hour <= 9) {
-                hour = "0" + hour;
+        let orderContainers = document.querySelectorAll(".individual-order");
+        //DELETE THE EXPIRED ORDERS
+        for (let i = 0; i < orderContainers.length; i++) {
+            let itsOk = 0;
+            for (let j = 0; j < tickets.length; j++) {
+                if (orderContainers[i].id == tickets[j].id) {
+                    itsOk = 1;
+                }
             }
-            if (minutes <= 9) {
-                minutes = "0" + minutes;
-            }
-            orderTimes[i].textContent = hour + ":" + minutes;
-            for (let j = 0; j < tickets[i].order.length; j++) {
-                let divContainer = document.querySelectorAll(".individual-order");
-                let orderItem = document.createElement("p");
-                orderItem.className = "order-item";
-                orderItem.textContent = tickets[i].order[j];
-                divContainer[i].appendChild(orderItem);
+            if (itsOk == 0) {
+                orderContainers[i].remove();
             }
         }
-    }
-    checkContainer();
+        //ADD NEW ORDERS FROM QUEUE
+        if (tickets.length != 0) {
+            for (let z = 0; z < tickets.length; z++) {
+                let isOk = 0;
+                for (let x = 0; x < orderContainers.length; x++) {
+                    if (tickets[z].id == orderContainers[x].id) {
+                        isOk = 1;
+                    }
+                }
+                if (isOk == 0) {
+                    let clone = ordersTemplate.cloneNode(true);
+                    let timestamp = tickets[z].startTime;
+                    let date = new Date(timestamp);
+                    let hour = date.getHours();
+                    let minutes = date.getMinutes();
+                    if (hour <= 9) {
+                        hour = "0" + hour;
+                    }
+                    if (minutes <= 9) {
+                        minutes = "0" + minutes;
+                    }
+                    let divContainer = document.createElement("div");
+                    divContainer.className = "individual-order";
+                    divContainer.id = tickets[z].id;
+                    let orderTime = document.createElement("h2");
+                    orderTime.className = "order-time";
+                    orderTime.textContent = hour + ":" + minutes;
+                    divContainer.appendChild(orderTime);
+                    for (let count = 0; count < tickets[z].order.length; count++) {
+                        let orderItem = document.createElement("p");
+                        orderItem.className = "order-item";
+                        orderItem.textContent = tickets[z].order[count];
+                        divContainer.appendChild(orderItem);
+                    }
+                    clone.appendChild(divContainer);
+                    ordersContainer.appendChild(clone);
+                }
+            }
+        }
 
-}
 
-function checkContainer() {
-    let divContainer = document.querySelectorAll(".individual-order");
-    for (var i = 0; i < divContainer.length; i++) {
-        if (divContainer[i].textContent == "")
-            divContainer[i].style.display = "none";
     }
 
 }
@@ -175,7 +205,7 @@ function handleKegs(keg) {
     const kegsContainer = document.querySelector("#kegs-section");
     const kegsTemplate = document.querySelector("#kegs-levels-template").content;
     let theKegName = document.querySelector(".keg-name");
-    if (theKegName == null) {
+    if (!handleKegs.didrun) {
         for (let count = 0; count < keg.length; count++) {
             let clone = kegsTemplate.cloneNode(true);
             let beerArray = ["Sleighride", "Hollaback Lager", "Ruined Childhood", "GitHop", "Mowintime", "Row 26", "Hoppily Ever After", "Steampunk", "Fairy Tale Ale", "El Hefe"];
@@ -204,9 +234,23 @@ function handleKegs(keg) {
             level[count].style.width = newLevel + "%";
             let levelNum = document.querySelectorAll(".level-number");
             levelNum[count].textContent = keg[count].level + "/" + keg[count].capacity + "cl";
+            if (keg[count].level == "0") {
+                let theBeers = document.querySelectorAll(".beer-name-storage");
+                for (let i = 0; i < theBeers.length; i++) {
+                    if (keg[count].beer == theBeers[i].textContent) {
+                        let theBeerIcons = theBeers[i].nextElementSibling;
+                        let lastKegIs = theBeerIcons.lastChild;
+                        if (lastKegIs != null) {
+                            lastKegIs.remove();
+                        }
+                    }
+                }
+
+            }
         }
 
     }
+    handleKegs.didrun = true;
 
 }
 
@@ -242,14 +286,9 @@ function doDropDown() {
 
 function closeDropDownOnClick(event) {
     if (!event.target.matches('.login-button')) {
-
-        var dropdowns = document.querySelector(".login-button");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+        let thedropdown = document.querySelector("#theDropdown");
+        if (thedropdown.classList.contains('show')) {
+            thedropdown.classList.remove('show');
         }
     }
 }
