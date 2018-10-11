@@ -16,14 +16,14 @@
 
     <main>
         <section id="bartender-time-section">
-            <img class="logo" src="img/logo.png">
+            <img class="logo" src="img/foobar-logo.png">
         </section>
         <section id="welcome-section">
             <h1 class="welcome-tag">Welcome<span id="welcome-bartender-name"></span>!</h1>
         </section>
         <section class="login-section">
             <div class="dropdown-menu">
-                <button class="login-button">LogIn</button>
+                <button class="login-button"><span>Login </span></button>
                 <div id="theDropdown" class="dropdown-content">
                     <a class="drop-down-name" href="#" onclick="logIn(this)"></a>
                     <a class="drop-down-name" href="#" onclick="logIn(this)"></a>
@@ -32,7 +32,7 @@
             </div>
         </section>
         <section id="storage-room-section">
-
+            <span class="scroll-span">&raquo;</span>
         </section>
         <section id="orders-section">
 
@@ -52,6 +52,7 @@
         </section>
 
         <section id="closing-time">
+            <h5 class="closing">Closing Time</h5>
             <p id="closing-time-p"></p>
         </section>
     </main>
@@ -63,6 +64,7 @@
                 <p class="low-amount-warning"></p>
             </div>
         </div>
+
     </template>
 
     <template id="orders-template">

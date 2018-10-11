@@ -1,13 +1,10 @@
-/*import is from is;
-import GreenSock from gsap;
-import Chart from Chart.js;
-*/
+"use strict"
 
 init();
 
 
 function init() {
-    //setInterval(updateStorageRoom, 300);
+
     setInterval(updateOrders, 300);
     setInterval(updateKegs, 300);
     setInterval(updateQueue, 300);
@@ -43,7 +40,7 @@ function updateStorageRoom() {
 
 function updateKegs() {
     let data = JSON.parse(FooBar.getData());
-    handleKegs(data.taps, data.storage);
+    handleKegs(data.taps);
 }
 
 
@@ -92,29 +89,6 @@ function handleStorageRoom(beerType) {
 
         }
     }
-    /*
-    else {
-        let kegIcons = document.querySelectorAll(".storage-kegs-icon");
-        for (var i = 0; i < kegIcons.length; i++) {
-            kegIcons[i].parentNode.removeChild(kegIcons[i]);
-        }
-        for (let count = 0; count < beerType.length; count++) {
-            let amountOfKegs = beerType[count].amount;
-            while (amountOfKegs > 0) {
-                let newImage = new Image(20, 25);
-                newImage.src = "img/keg.png";
-                newImage.className = "storage-kegs-icon";
-                newImage.style.marginRight = "3px";
-                newImage.style.marginBottom = "3px";
-                let theContainers = document.querySelectorAll(".kegs-icon-container");
-                let containersArray = Array.from(theContainers);
-                containersArray[count].appendChild(newImage);
-                amountOfKegs = amountOfKegs - 1;
-            }
-        }
-        
-
-    }*/
     handleStorageRoom.didrun = true;
 }
 
@@ -164,7 +138,6 @@ function handleOrders(tickets) {
             }
             if (itsOk == 0) {
                 orderContainers[i].remove();
-                //$(orderContainers[i]).fadeOut();
             }
         }
         //ADD NEW ORDERS FROM QUEUE
@@ -213,7 +186,7 @@ function handleOrders(tickets) {
 }
 
 
-function handleKegs(keg, storageAmount) {
+function handleKegs(keg) {
     const kegsContainer = document.querySelector("#kegs-section");
     const kegsTemplate = document.querySelector("#kegs-levels-template").content;
     let theKegName = document.querySelector(".keg-name");
@@ -250,8 +223,6 @@ function handleKegs(keg, storageAmount) {
             let levelNum = document.querySelectorAll(".level-number");
             levelNum[count].textContent = keg[count].level + "/" + keg[count].capacity + "cl";
             if (keg[count].level == 0) {
-                let allKegsInStorage = storageAmount.amount;
-                //CONTINUE
                 let theBeers = document.querySelectorAll(".beer-name-storage");
                 for (let i = 0; i < theBeers.length; i++) {
                     if (keg[count].beer == theBeers[i].textContent) {
@@ -314,7 +285,7 @@ function closingTime(closingTime) {
     var now = new Date();
     var timeUntilClosing = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) - now;
     if (timeUntilClosing < 0) {
-        timeUntilClosing += 86400000; // it's after 10am, try 10am tomorrow.
+        timeUntilClosing += 86400000;
     }
     let date = new Date(timeUntilClosing);
     let hour = date.getHours();
