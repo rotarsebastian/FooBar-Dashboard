@@ -11,6 +11,7 @@ function init() {
     setInterval(updateOrders, 300);
     setInterval(updateKegs, 300);
     setInterval(updateQueue, 300);
+    setInterval(updateTime, 300);
     updateBartender();
     updateStorageRoom();
 
@@ -27,6 +28,11 @@ function updateQueue() {
 function updateBartender() {
     let data = JSON.parse(FooBar.getData());
     handleBartenders(data.bartenders);
+}
+
+function updateTime() {
+    let data = JSON.parse(FooBar.getData());
+    closingTime(data.bar);
 }
 
 function updateStorageRoom() {
@@ -69,7 +75,7 @@ function handleStorageRoom(beerType) {
             clone.querySelector(".beer-name-storage").textContent = beerType[count].name + ` (${amountOfKegs})`;
             if (amountOfKegs == 0 || amountOfKegs == 1) {
                 let lowWarning = clone.querySelector(".low-amount-warning");
-                lowWarning.textContent = "WARNING! Low amount left!";
+                lowWarning.textContent = "Low amount left!";
             }
             while (amountOfKegs > 0) {
                 let newImage = new Image(20, 25);
@@ -158,6 +164,7 @@ function handleOrders(tickets) {
             }
             if (itsOk == 0) {
                 orderContainers[i].remove();
+                //$(orderContainers[i]).fadeOut();
             }
         }
         //ADD NEW ORDERS FROM QUEUE
@@ -236,7 +243,6 @@ function handleKegs(keg, storageAmount) {
             let decreaseValue = keg[count].capacity - keg[count].level;
             var percentValue = Math.floor((decreaseValue / keg[count].level) * 100);
             let newLevel = 100 - percentValue;
-            console.log(newLevel);
             if (newLevel == 0) {
                 newLevel = 100;
             }
@@ -302,4 +308,27 @@ function closeDropDownOnClick(event) {
             thedropdown.classList.remove('show');
         }
     }
+}
+
+function closingTime(closingTime) {
+    var now = new Date();
+    var timeUntilClosing = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) - now;
+    if (timeUntilClosing < 0) {
+        timeUntilClosing += 86400000; // it's after 10am, try 10am tomorrow.
+    }
+    let date = new Date(timeUntilClosing);
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    if (hour <= 9) {
+        hour = "0" + hour;
+    }
+    if (minutes <= 9) {
+        minutes = "0" + minutes;
+    }
+    if (seconds <= 9) {
+        seconds = "0" + seconds;
+    }
+    let showTime = document.querySelector("#closing-time-p");
+    showTime.textContent = hour + ":" + minutes + ":" + seconds;
 }
