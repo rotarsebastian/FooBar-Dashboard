@@ -154,8 +154,8 @@ section{
 }
 
 .order-time, .order-item{
-  animation: text-opacity 1s ease-in forwards;
-  animation-delay: .5s;
+  animation: text-opacity 0.5s ease-in forwards;
+  animation-delay: .2s;
   opacity: 0;
 }
 
