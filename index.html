@@ -46,7 +46,7 @@
 
         <section id="people-in-queue">
 
-            <h1 class="people-queue">Left in queue: <span id="queue-number"></span></h1>
+            <h1 class="people-queue">Queue: <span id="queue-number"></span></h1>
 
         </section>
 
@@ -73,12 +73,14 @@
                 <img src="" alt="keg-type-level" class="beer-type-pic">
             </div>
             <div class="level-container">
-                <h5>Level</h5>
+                <h5 id="level-tag"></h5>
+                <div class="level-number"></div>
                 <div class="w3-progress-container">
                     <div class="w3-progressbar"></div>
                 </div>
+
                 <div class="keg-name"></div>
-                <div class="level-number"></div>
+
             </div>
         </div>
     </template>

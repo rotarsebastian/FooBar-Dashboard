@@ -69,7 +69,7 @@ function handleStorageRoom(beerType) {
             clone.querySelector(".beer-name-storage").textContent = beerType[count].name + ` (${amountOfKegs})`;
             if (amountOfKegs == 0 || amountOfKegs == 1) {
                 let lowWarning = clone.querySelector(".low-amount-warning");
-                lowWarning.textContent = "WARNING! Low amount left!";
+                lowWarning.textContent = "Low amount left!";
             }
             while (amountOfKegs > 0) {
                 let newImage = new Image(20, 25);
