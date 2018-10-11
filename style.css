@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+ 
 }
 body{
   margin: 0;
@@ -20,9 +21,10 @@ section{
 
 
 
-
-.beer-storage{
-  border: 1px solid black;
+.beer-name-storage{
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .w3-progress-container {
@@ -38,6 +40,10 @@ section{
   -o-transition: all ease 0.5s;
   -ms-transition: all ease 0.5s ;
   transition: all ease 0.5s ;
+}
+
+.kegs-icon-container{
+  padding: 5px;
 }
 
 .w3-progress-container:hover {
@@ -67,13 +73,11 @@ section{
 .individual-order {
   padding: 2vh 2vw 2vh 2vw;
   margin: 1vh 0vw 1vh 0vw;
-  border-left: .2vw inset brown;
-  border-right: 1px dashed black;
-  border-top: 1px dashed black;
-  border-bottom: 1px dashed black;
-  box-shadow: 7px 5px 18px #888888;
+  box-shadow: 0px 0px 18px #888888;
   background-color: hsla(18, 100%, 34%, 0.726);
-  height: 150px;
+  height: 165px;
+  width: 130px;
+  border-radius: 5px;
 }
 
 #orders-section{
@@ -92,8 +96,11 @@ section{
   background-color: #f1f1f1;
   overflow: auto;
   z-index: 1;
-  position: absolute;
-  min-width: 150px;;
+  position: relative;
+  min-width: 100%;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .dropdown-content a {
@@ -106,3 +113,58 @@ section{
 .dropdown a:hover {background-color: #ddd;}
 
 .show { display: block; }
+
+.login-button{
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+}
+
+.login-section{
+  border: none;
+}
+
+.welcome-tag{
+  text-align: center;
+  padding: 5px;
+  font-size: 35px;
+}
+
+.order-time{
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.order-item{
+  padding-top: 5px;
+  text-align: center;
+}
+
+#storage-room-section{
+  border: none;
+}
+
+.beer-storage{
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+
+.low-amount-warning{
+  color: red;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.bar-name{
+  text-align: center;
+  padding: 5px;
+  font-size: 35px;
+}
