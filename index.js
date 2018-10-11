@@ -1,67 +1,49 @@
 "use strict"
-
 init();
-
-
 function init() {
-
     setInterval(updateOrders, 300);
     setInterval(updateKegs, 300);
     setInterval(updateQueue, 300);
     setInterval(updateTime, 300);
     updateBartender();
     updateStorageRoom();
-
-
     document.addEventListener("click", closeDropDownOnClick);
     document.querySelector(".login-button").addEventListener("click", doDropDown);
 }
-
 function updateQueue() {
     let data = JSON.parse(FooBar.getData());
     handleQueue(data.queue);
 }
-
 function updateBartender() {
     let data = JSON.parse(FooBar.getData());
     handleBartenders(data.bartenders);
 }
-
 function updateTime() {
     let data = JSON.parse(FooBar.getData());
-    closingTime(data.bar);
+    closingTime();
 }
-
 function updateStorageRoom() {
     let data = JSON.parse(FooBar.getData());
     handleStorageRoom(data.storage);
-    //console.log(FooBar.getData(true));
 }
-
 function updateKegs() {
     let data = JSON.parse(FooBar.getData());
     handleKegs(data.taps);
 }
-
-
 function updateOrders() {
     let data = JSON.parse(FooBar.getData());
     handleOrders(data.queue);
 }
-
 function handleBartenders(bartender) {
     let dropDowns = document.querySelectorAll(".drop-down-name");
     for (let count = 0; count < bartender.length; count++) {
         dropDowns[count].textContent = " " + bartender[count].name;
     }
-
 }
-
 function logIn(e) {
     let bartenderName = document.querySelector("#welcome-bartender-name");
     bartenderName.textContent = e.textContent;
 }
-
 function handleStorageRoom(beerType) {
     const storageContainer = document.querySelector("#storage-room-section");
     const storageTemplate = document.querySelector("#storage-room-template").content;
@@ -84,14 +66,11 @@ function handleStorageRoom(beerType) {
                 theDiv.appendChild(newImage);
                 amountOfKegs = amountOfKegs - 1;
             }
-
             storageContainer.appendChild(clone);
-
         }
     }
     handleStorageRoom.didrun = true;
 }
-
 function handleOrders(tickets) {
     const ordersContainer = document.querySelector("#orders-section");
     const ordersTemplate = document.querySelector("#orders-template").content;
@@ -179,13 +158,8 @@ function handleOrders(tickets) {
                 }
             }
         }
-
-
     }
-
 }
-
-
 function handleKegs(keg) {
     const kegsContainer = document.querySelector("#kegs-section");
     const kegsTemplate = document.querySelector("#kegs-levels-template").content;
@@ -210,7 +184,6 @@ function handleKegs(keg) {
         }
     }
     else {
-
         for (let count = 0; count < keg.length; count++) {
             let level = document.querySelectorAll(".w3-progressbar");
             let decreaseValue = keg[count].capacity - keg[count].level;
@@ -233,22 +206,16 @@ function handleKegs(keg) {
                         }
                     }
                 }
-
             }
         }
-
     }
     handleKegs.didrun = true;
-
 }
-
-
 function handleQueue(people) {
     let queueLength = people.length;
     let queueNumber = document.querySelector("#queue-number");
     queueNumber.textContent = queueLength;
 }
-
 function realTime() {
     var today = new Date();
     var hours = today.getHours();
@@ -267,11 +234,9 @@ function realTime() {
         hours + ":" + minutes + ":" + seconds;
     var t = setTimeout(realTime, 500);
 }
-
 function doDropDown() {
     document.querySelector("#theDropdown").classList.toggle("show");
 }
-
 function closeDropDownOnClick(event) {
     if (!event.target.matches('.login-button')) {
         let thedropdown = document.querySelector("#theDropdown");
@@ -280,8 +245,7 @@ function closeDropDownOnClick(event) {
         }
     }
 }
-
-function closingTime(closingTime) {
+function closingTime() {
     var now = new Date();
     var timeUntilClosing = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) - now;
     if (timeUntilClosing < 0) {
