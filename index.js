@@ -42,6 +42,9 @@ function handleBartenders(bartender) {
 }
 function logIn(e) {
     let bartenderName = document.querySelector("#welcome-bartender-name");
+    let welcomeTag = document.querySelector(".welcome-tag");
+    welcomeTag.style.marginLeft = "80px";
+    welcomeTag.style.transition = "1.5s";
     bartenderName.textContent = e.textContent;
 }
 function handleStorageRoom(beerType) {
@@ -90,6 +93,11 @@ function handleOrders(tickets) {
             let divContainer = document.createElement("div");
             divContainer.className = "individual-order";
             divContainer.id = tickets[count].id;
+            let ticketNo = document.createElement("p");
+            let ticketNoIs = tickets[count].id + 1;
+            ticketNo.textContent = "No. " + ticketNoIs;
+            ticketNo.className = "ticket-id";
+            divContainer.appendChild(ticketNo);
             let orderTime = document.createElement("h2");
             orderTime.className = "order-time";
             orderTime.textContent = hour + ":" + minutes;
@@ -143,6 +151,11 @@ function handleOrders(tickets) {
                     let divContainer = document.createElement("div");
                     divContainer.className = "individual-order";
                     divContainer.id = tickets[z].id;
+                    let ticketNo = document.createElement("p");
+                    let ticketNoIs = tickets[z].id + 1;
+                    ticketNo.textContent = "No. " + ticketNoIs;
+                    ticketNo.className = "ticket-id";
+                    divContainer.appendChild(ticketNo);
                     let orderTime = document.createElement("h2");
                     orderTime.className = "order-time";
                     orderTime.textContent = hour + ":" + minutes;
@@ -267,3 +280,33 @@ function closingTime() {
     let showTime = document.querySelector("#closing-time-p");
     showTime.textContent = hour + ":" + minutes + ":" + seconds;
 }
+
+
+$(document).ready(function () {
+    // This function will animate the button and then 
+    //call it self on completing the animation
+    function pulse() {
+        // This will make sure the button only animates 
+        // when the user is at the top of the page
+        if ($('#storage-room-section').scrollTop() <= 0) {
+            $('.storage-scroll').delay(200).fadeOut('slow').delay(50).fadeIn('slow', pulse);
+        }
+        else {
+        }
+    }
+    // This will trigger the animation on when document is ready
+    pulse();
+
+    $('#storage-room-section').scroll(function () {
+        if ($(this).scrollTop() > 0) {
+            // This will stop the animation
+            $('.storage-scroll').clearQueue();
+            // This will hide the bar
+            $('.storage-scroll').fadeOut("fast");
+        } else {
+            // This will restart the animation when the user 
+            // scrolls back to the top of the page
+            pulse();
+        }
+    });
+});
